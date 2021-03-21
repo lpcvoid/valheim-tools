@@ -3,4 +3,4 @@ project(valheim_tools)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(playerdb_reader playerdb_reader_main.cpp ZPackage.cpp ZPackage.h)
+add_executable(playerdb_reader playerdb_reader_main.cpp ZPackage.cpp ZPackage.h Player.cpp Player.h)
