@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include "Player.h"
+#include "Helpers.h"
 
 std::optional<valheim::PlayerData> valheim::Player::load_from_file(std::filesystem::path filepath) {
 
@@ -50,6 +51,9 @@ std::optional<valheim::PlayerData> valheim::Player::load_from_file(std::filesyst
         }
     });
 
+    player.playername =  read_encoded_string(filestream);
+    filestream.read(reinterpret_cast<char *>(&player.player_id), 8);
+    player.start_seed =  read_encoded_string(filestream);
 
     return player;
 

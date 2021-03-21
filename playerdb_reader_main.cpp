@@ -3,6 +3,10 @@
 #include "Player.h"
 
 void print_player(const valheim::PlayerData &player) {
+    std::cout << "Playername: " << player.playername << std::endl;
+    std::cout << "Player id: " << player.player_id << std::endl;
+    std::cout << "Start seed: " << player.start_seed << std::endl;
+
     std::cout << "Kills: " << player.kills << std::endl;
     std::cout << "Builds: " << player.builds << std::endl;
     std::cout << "Crafts: " << player.crafts << std::endl;

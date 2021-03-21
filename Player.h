@@ -34,7 +34,7 @@ namespace valheim {
         int32_t builds = 0;
         std::vector<PlayerWorldData> worlds;
         std::string playername;
-        uint32_t player_id = 0;
+        uint64_t player_id = 0;
         std::string start_seed;
         std::vector<uint8_t> player_data;
     };
