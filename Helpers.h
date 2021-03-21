@@ -33,6 +33,6 @@ std::string read_encoded_string(std::ifstream& filestream){
             return std::string(buffer, count);
         sz += count;
     } while (sz < len);
-
+    return res;
 }
 
