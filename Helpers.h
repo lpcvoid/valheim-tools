@@ -4,7 +4,6 @@
 
 #pragma once
 
-
 int32_t read_7bit_enc_int(std::ifstream& filestream){
     int32_t res = 0;
     int32_t shifter = 0;

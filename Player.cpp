@@ -54,7 +54,13 @@ std::optional<valheim::PlayerData> valheim::Player::load_from_file(std::filesyst
     player.playername =  read_encoded_string(filestream);
     filestream.read(reinterpret_cast<char *>(&player.player_id), 8);
     player.start_seed =  read_encoded_string(filestream);
-
+    bool has_player_data = false;
+    filestream.read(reinterpret_cast<char *>(&has_player_data), 1);
+    if (has_player_data){
+        int32_t player_data_size = 0;
+        filestream.read(reinterpret_cast<char *>(&player_data_size), 4);
+        player.player_data.resize(player_data_size);
+        filestream.read(reinterpret_cast<char *>(player.player_data.data()), player_data_size);
+    }
     return player;
-
 }
