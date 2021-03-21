@@ -12,5 +12,5 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 ```
 
-## playerdb_reader_main
+## playerdb_reader
 prints information about a given player database
