@@ -10,10 +10,9 @@
 #include <vector>
 #include <memory>
 #include <filesystem>
+#include "Types.h"
 
 namespace valheim {
-
-    using Position = std::tuple<float, float, float>;
 
     struct PlayerWorldData {
         uint64_t key = 0;
