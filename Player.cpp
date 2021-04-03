@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Player.h"
 #include "Helpers.h"
+#include <algorithm>
 
 std::optional<valheim::PlayerData> valheim::Player::load_from_file(std::filesystem::path filepath) {
 

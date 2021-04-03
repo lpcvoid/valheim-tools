@@ -6,6 +6,7 @@
 #include <iostream>
 #include "World.h"
 #include "Helpers.h"
+#include <algorithm>
 
 #define READ_MAP(DTYPE,MEMBER) \
         filestream.read(reinterpret_cast<char *>(&count), 1);                   \

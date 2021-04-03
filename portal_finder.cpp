@@ -32,7 +32,7 @@ void print_portals(valheim::WorldData &world_data) {
     //present results
     std::cout << "Found a total of " << portals.size() << " portals." << std::endl;
     std::cout << std::endl;
-    std::cout << "Dangling portals (no connected):" << std::endl;
+    std::cout << "Dangling portals (not connected):" << std::endl;
     std::cout << std::endl;
     std::for_each(portals.begin(), portals.end(), [&](auto portal) {
         if (occurrence_count[portal.first] == 1) {
