@@ -14,3 +14,6 @@ make
 
 ## playerdb_reader
 prints information about a given player database
+
+## portal_finder
+prints information about all portals in the world and reports if any portals are unconnected
