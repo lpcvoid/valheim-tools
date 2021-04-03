@@ -3,6 +3,7 @@
 //
 
 #include <fstream>
+#include <iostream>
 #include "World.h"
 #include "Helpers.h"
 
@@ -91,12 +92,8 @@ std::optional<valheim::WorldData> valheim::World::load_from_file(std::filesystem
             value = read_encoded_string(filestream);
             zdo.data.strings[key] = value;
         }
-
     });
 
-    world.name = read_encoded_string(filestream);
-    world.seed_name = read_encoded_string(filestream);
-
-
+    return world;
 
 }

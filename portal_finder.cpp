@@ -4,9 +4,53 @@
 
 #include <iostream>
 #include <filesystem>
+#include <unordered_set>
 #include "World.h"
 
-void print_world_data(valheim::WorldData& world_data){
+void print_portals(valheim::WorldData &world_data) {
+    using PortalPos = std::pair<std::string, valheim::Position>;
+
+    std::vector<PortalPos> portals;
+    for (auto &zdo : world_data.zdos) {
+        if (zdo.data.prefab == -661882940) { //this magic number is caled by GetHashCode() c# function
+            //std::cout << zdo.id << " " << zdo.data.prefab << std::endl;
+            portals.emplace_back(zdo.data.strings.begin()->second, zdo.data.position);
+        }
+    }
+
+    //count occurrences
+    std::map<std::string, uint32_t> occurrence_count;
+    for (auto &portal : portals) {
+        occurrence_count[portal.first]++;
+    }
+
+    //sort it by portal name so overview is nicer
+    std::sort(portals.begin(), portals.end(), [&](auto &a, auto &b) {
+        return std::hash<std::string>{}(a.first) > std::hash<std::string>{}(b.first);
+    });
+
+    //present results
+    std::cout << "Found a total of " << portals.size() << " portals." << std::endl;
+    std::cout << std::endl;
+    std::cout << "Dangling portals (no connected):" << std::endl;
+    std::cout << std::endl;
+    std::for_each(portals.begin(), portals.end(), [&](auto portal) {
+        if (occurrence_count[portal.first] == 1) {
+            std::cout << portal.first << ", at (" << std::get<0>(portal.second)
+                      << "," << std::get<1>(portal.second)
+                      << "," << std::get<2>(portal.second) << ")" << std::endl;
+        }
+    });
+    std::cout << std::endl;
+    std::cout << "Connected portals:" << std::endl;
+    std::cout << std::endl;
+    std::for_each(portals.begin(), portals.end(), [&](auto portal) {
+        if (occurrence_count[portal.first] == 2) {
+            std::cout << portal.first << ", at (" << std::get<0>(portal.second)
+                      << "," << std::get<1>(portal.second)
+                      << "," << std::get<2>(portal.second) << ")" << std::endl;
+        }
+    });
 
 }
 
@@ -26,8 +70,8 @@ int main(int argc, char *argv[]) {
             //load the file
             valheim::World world;
             auto world_data = world.load_from_file(world_filepath);
-            if (world_data){
-                print_world_data(world_data.value());
+            if (world_data) {
+                print_portals(world_data.value());
             } else {
                 std::cerr << "Failed to parse supplied file" << std::endl;
             }
