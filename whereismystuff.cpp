@@ -8,13 +8,23 @@
 #include "World.h"
 
 void print_portals(valheim::WorldData &world_data) {
-    using PortalPos = std::pair<std::string, valheim::Position>;
+    using POI = std::pair<std::string, valheim::Position>;
 
-    std::vector<PortalPos> portals;
+
+    std::vector<POI> portals;
+    std::vector<POI> graves;
     for (auto &zdo : world_data.zdos) {
+        //if (!zdo.data.strings.empty())
+        //    std::cout << zdo.data.strings.begin()->second << " " << zdo.id << " " << zdo.data.prefab << std::endl;
+
         if (zdo.data.prefab == -661882940) { //this magic number is caled by GetHashCode() c# function
-            //std::cout << zdo.id << " " << zdo.data.prefab << std::endl;
-            portals.emplace_back(zdo.data.strings.begin()->second, zdo.data.position);
+            if (!zdo.data.strings.empty())
+                portals.emplace_back(zdo.data.strings.begin()->second, zdo.data.position);
+        }
+
+        if (zdo.data.prefab == -1273339005) {
+            if (!zdo.data.strings.empty())
+                graves.emplace_back(zdo.data.strings.begin()->second, zdo.data.position);
         }
     }
 
@@ -52,16 +62,26 @@ void print_portals(valheim::WorldData &world_data) {
         }
     });
 
+    std::cout << std::endl;
+    std::cout << "Graves:" << std::endl;
+    std::cout << std::endl;
+    std::for_each(graves.begin(), graves.end(), [&](auto grave) {
+            std::cout << grave.first << ", at (" << std::get<0>(grave.second)
+                      << "," << std::get<1>(grave.second)
+                      << "," << std::get<2>(grave.second) << ")" << std::endl;
+
+    });
+
 }
 
 void print_help() {
 
     std::cout << "Usage : " << std::endl;
-    std::cout << "portal_finder [PATH_TO_WORLDDB]" << std::endl;
+    std::cout << "whereismystuff [PATH_TO_WORLDDB]" << std::endl;
 }
 
 int main(int argc, char *argv[]) {
-    std::cout << "Valheim portal finder" << std::endl;
+    std::cout << "Valheim stuff finder" << std::endl;
     if (1 == argc)
         print_help();
     else if (2 == argc) {
