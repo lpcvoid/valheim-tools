@@ -13,7 +13,12 @@ make
 ```
 
 ## playerdb_reader
-prints information about a given player database
+Prints information about a given player database
 
 ## portal_finder
-prints information about all portals in the world and reports if any portals are unconnected
+Prints information about all portals in the world and reports if any portals are unconnected
+
+## mapdatasync
+Takes a list of character (fcl) files, and synchronizes the exploration state of the map between them. 
+Generates new files which can then be replaced on each players computer.
+Does not change anything else.
