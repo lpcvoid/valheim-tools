@@ -21,4 +21,4 @@ Prints information about all portals in the world and reports if any portals are
 ## mapdatasync
 Takes a list of character (fcl) files, and synchronizes the exploration state of the map between them. 
 Generates new files which can then be replaced on each players computer.
-Does not change anything else.
+Does not change anything else. 
